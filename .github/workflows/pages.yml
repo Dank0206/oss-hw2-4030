@@ -13,6 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: python3 -m unittest -v
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
   deploy:
     needs: test
     environment:
@@ -20,10 +24,5 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/configure-pages@v6
-      - uses: actions/upload-pages-artifact@v5
-        with:
-          path: site
       - id: deployment
         uses: actions/deploy-pages@v5
